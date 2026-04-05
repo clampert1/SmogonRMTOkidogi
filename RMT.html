@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YOUR SOUL IS MINE TO BREAK — Undertale RMT by _Spooky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ut-yellow:#FFD700;
+  --ut-dark:#0d1b2a;
+  --ut-darker:#080f1a;
+  --ut-mid:#111d30;
+  --ut-card:#0e1a2d;
+  --ut-red:#FF4444;
+  --ut-blue:#4a9eff;
+  --ut-green:#44FF88;
+  --ut-white:#e8eaf0;
+  --ut-gray:#6a7d9f;
+  --ut-soul:#FF6B9D;
+  --ut-border:rgba(255,215,0,0.25);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ut-darker);
+  color:var(--ut-white);
+  font-family:'VT323',monospace;
+  font-size:20px;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+/* SCANLINES */
+body::after{
+  content:'';
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.03) 3px,rgba(0,0,0,0.03) 4px);
+  pointer-events:none;
+  z-index:9999;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--ut-darker)}
+::-webkit-scrollbar-thumb{background:var(--ut-yellow);border-radius:0}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(180deg,#060c18 0%,#0d1b2a 50%,#080f1a 100%);
+  border-bottom:3px solid var(--ut-yellow);
+  padding:64px 40px 56px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 50% -10%,rgba(255,215,0,0.1) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-corner{position:absolute;width:24px;height:24px;border-color:var(--ut-yellow);border-style:solid;opacity:0.6}
+.hero-corner.tl{top:16px;left:16px;border-width:3px 0 0 3px}
+.hero-corner.tr{top:16px;right:16px;border-width:3px 3px 0 0}
+.hero-corner.bl{bottom:16px;left:16px;border-width:0 0 3px 3px}
+.hero-corner.br{bottom:16px;right:16px;border-width:0 3px 3px 0}
+.hero-eyebrow{
+  font-family:'Press Start 2P',monospace;font-size:8px;
+  color:var(--ut-yellow);letter-spacing:5px;text-transform:uppercase;
+  margin-bottom:24px;opacity:0.65;
+}
+.hero-title{
+  font-family:'Press Start 2P',monospace;font-size:28px;
+  color:var(--ut-yellow);line-height:1.5;margin-bottom:16px;
+  animation:titlePulse 3s ease-in-out infinite;
+}
+@keyframes titlePulse{
+  0%,100%{text-shadow:0 0 20px rgba(255,215,0,0.25),3px 3px 0 rgba(255,215,0,0.12)}
+  50%{text-shadow:0 0 50px rgba(255,215,0,0.55),3px 3px 0 rgba(255,215,0,0.28)}
+}
+.hero-soul-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px}
+.soul{
+  display:inline-block;width:14px;height:14px;
+  background:var(--ut-soul);
+  clip-path:polygon(50% 0%,100% 38%,82% 100%,50% 82%,18% 100%,0% 38%);
+  animation:soulBeat 1.2s ease-in-out infinite;
+}
+.soul:nth-child(2){animation-delay:0.4s}
+.soul:nth-child(3){animation-delay:0.8s}
+@keyframes soulBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+.hero-subtitle{
+  font-family:'Press Start 2P',monospace;font-size:10px;
+  color:var(--ut-soul);margin-bottom:12px;letter-spacing:2px;
+}
+.hero-meta{
+  font-family:'Space Mono',monospace;font-size:12px;
+  color:var(--ut-gray);margin-top:20px;letter-spacing:1px;
+}
+.hero-meta span{color:var(--ut-yellow)}
+
+/* STYLED VERSION BANNER */
+.styled-banner{
+  background:linear-gradient(90deg,rgba(255,215,0,0.12),rgba(255,215,0,0.06),rgba(255,215,0,0.12));
+  border-top:2px solid var(--ut-yellow);
+  border-bottom:2px solid var(--ut-yellow);
+  padding:14px 40px;
+  text-align:center;
+  font-family:'Press Start 2P',monospace;
+  font-size:9px;
+  color:var(--ut-yellow);
+  letter-spacing:2px;
+  animation:bannerPulse 2.5s ease-in-out infinite;
+}
+@keyframes bannerPulse{0%,100%{opacity:0.8}50%{opacity:1}}
+.styled-banner a{color:var(--ut-yellow);text-decoration:none;border-bottom:1px solid var(--ut-yellow)}
+
+/* ── DIALOG BOX ── */
+.dialog-box{
+  background:var(--ut-darker);
+  border:3px solid var(--ut-white);
+  margin:32px 40px;
+  padding:22px 28px;
+  position:relative;
+  font-family:'VT323',monospace;font-size:22px;line-height:1.65;
+}
+.dialog-name{
+  font-family:'Press Start 2P',monospace;font-size:9px;
+  color:var(--ut-yellow);position:absolute;top:-14px;left:14px;
+  background:var(--ut-darker);padding:0 10px;letter-spacing:1px;
+}
+.dialog-star{color:var(--ut-white);margin-right:8px}
+.blink-cursor{
+  display:inline-block;width:12px;height:18px;
+  background:var(--ut-white);margin-left:4px;
+  animation:blink 0.8s step-end infinite;vertical-align:middle;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── LAYOUT ── */
+.section{padding:0 40px 40px}
+.section-header{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:28px;padding-bottom:12px;
+  border-bottom:2px solid var(--ut-yellow);
+}
+.section-tag{
+  font-family:'Press Start 2P',monospace;font-size:8px;
+  background:var(--ut-yellow);color:var(--ut-darker);
+  padding:5px 12px;letter-spacing:1px;
+}
+.section-title{
+  font-family:'Press Start 2P',monospace;font-size:13px;
+  color:var(--ut-yellow);letter-spacing:3px;
+}
+hr.divider{border:none;border-top:1px solid rgba(255,215,0,0.12);margin:0 40px 40px}
+
+/* ── TEAM STRIP ── */
+.team-strip{display:flex;padding:0 40px;margin-bottom:40px;gap:0;overflow-x:auto}
+.strip-mon{
+  flex:1;min-width:110px;
+  background:rgba(255,215,0,0.03);
+  border:1px solid var(--ut-border);border-right:none;
+  padding:18px 10px;text-align:center;
+  position:relative;cursor:default;
+  transition:background 0.15s;
+}
+.strip-mon:last-child{border-right:1px solid var(--ut-border)}
+.strip-mon:hover{background:rgba(255,215,0,0.09)}
+.strip-ps{width:56px;height:56px;image-rendering:pixelated;display:block;margin:0 auto 8px;filter:drop-shadow(0 0 6px rgba(255,215,0,0.4))}
+.strip-nick{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--ut-yellow);display:block;margin-bottom:3px;line-height:1.5}
+.strip-name{font-family:'VT323',monospace;font-size:15px;color:var(--ut-gray);display:block}
+
+/* ── MON CARDS ── */
+.mon-cards{display:flex;flex-direction:column;gap:32px}
+.mon-card{
+  background:var(--ut-card);
+  border:2px solid rgba(255,215,0,0.2);
+  position:relative;overflow:hidden;
+}
+.mon-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ut-yellow)}
+.mon-card-inner{display:flex}
+
+/* LEFT PANEL */
+.card-left{
+  width:170px;min-width:170px;
+  background:rgba(0,0,0,0.25);
+  border-right:2px solid rgba(255,215,0,0.15);
+  display:flex;flex-direction:column;align-items:center;
+  padding:24px 14px;gap:8px;
+}
+.card-ps-sprite{
+  width:84px;height:84px;image-rendering:pixelated;
+  filter:drop-shadow(0 0 12px rgba(255,215,0,0.5));
+}
+.card-ut-sprite{
+  width:70px;height:70px;image-rendering:pixelated;
+  filter:drop-shadow(0 0 8px rgba(255,107,157,0.4));
+  border:1px solid rgba(255,107,157,0.2);
+  background:rgba(0,0,0,0.2);
+  padding:4px;
+}
+.card-divider-line{width:80%;height:1px;background:rgba(255,215,0,0.15);margin:2px 0}
+.card-nickname{
+  font-family:'Press Start 2P',monospace;font-size:7px;
+  color:var(--ut-yellow);text-align:center;line-height:1.5;
+}
+.card-species{font-family:'VT323',monospace;font-size:16px;color:var(--ut-gray)}
+.yt-btn{
+  display:flex;align-items:center;gap:6px;
+  background:#c00;color:white;border:none;
+  padding:5px 10px;font-family:'Press Start 2P',monospace;
+  font-size:6px;cursor:pointer;text-decoration:none;
+  margin-top:4px;letter-spacing:0.5px;transition:background 0.1s;
+}
+.yt-btn:hover{background:#a00}
+.yt-icon{width:14px;height:14px;fill:white;flex-shrink:0}
+
+/* RIGHT PANEL */
+.card-right{flex:1;padding:24px 28px}
+.card-header{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:14px;flex-wrap:wrap;
+}
+.card-title{
+  font-family:'Press Start 2P',monospace;font-size:11px;
+  color:var(--ut-yellow);
+}
+.badge{
+  font-family:'Press Start 2P',monospace;font-size:6px;
+  padding:3px 9px;letter-spacing:0.5px;
+}
+.badge-item{background:rgba(74,158,255,0.15);color:var(--ut-blue);border:1px solid rgba(74,158,255,0.5)}
+.badge-ability{background:rgba(68,255,136,0.12);color:var(--ut-green);border:1px solid rgba(68,255,136,0.4)}
+.badge-tera{background:rgba(255,107,157,0.12);color:var(--ut-soul);border:1px solid rgba(255,107,157,0.4)}
+.ut-quote{
+  font-family:'VT323',monospace;font-size:18px;
+  color:var(--ut-gray);font-style:italic;
+  margin-bottom:12px;border-left:2px solid var(--ut-soul);
+  padding-left:10px;
+}
+.moves-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:12px 0}
+.move-pill{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:6px 12px;font-family:'VT323',monospace;
+  font-size:18px;color:var(--ut-white);
+}
+.move-pill::before{content:'- ';color:var(--ut-yellow)}
+.ev-wrap{margin:10px 0}
+.ev-labels{
+  display:flex;justify-content:space-between;
+  font-family:'VT323',monospace;font-size:15px;
+  color:var(--ut-gray);margin-bottom:4px;
+}
+.ev-bar-bg{background:rgba(255,255,255,0.06);height:5px;width:100%}
+.ev-bar-fill{height:5px;background:var(--ut-yellow)}
+.card-nature{
+  font-family:'VT323',monospace;font-size:16px;
+  color:var(--ut-gray);margin-bottom:10px;
+}
+.card-desc{
+  font-family:'VT323',monospace;font-size:19px;
+  color:rgba(232,234,240,0.82);line-height:1.55;
+  border-top:1px solid rgba(255,215,0,0.12);
+  padding-top:12px;margin-top:4px;
+}
+
+/* ── BUILD STEPS ── */
+.build-steps{display:flex;flex-direction:column;gap:0}
+.build-step{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:18px 0;border-bottom:1px solid rgba(255,215,0,0.08);
+}
+.build-step:last-child{border-bottom:none}
+.build-sprites{display:flex;gap:4px;flex-wrap:wrap;min-width:180px;max-width:180px}
+.bs{width:38px;height:38px;image-rendering:pixelated;filter:brightness(0.6)}
+.bs.active{filter:brightness(1) drop-shadow(0 0 5px var(--ut-yellow))}
+.build-text{font-family:'VT323',monospace;font-size:19px;color:rgba(232,234,240,0.8);line-height:1.5}
+.build-text strong{color:var(--ut-yellow)}
+
+/* ── THREAT CARDS ── */
+.threat-card{
+  background:rgba(255,68,68,0.06);
+  border:2px solid rgba(255,68,68,0.35);
+  border-left:4px solid var(--ut-red);
+  padding:16px 20px;margin-bottom:14px;
+  display:flex;gap:16px;align-items:center;
+}
+.threat-ps{width:52px;height:52px;image-rendering:pixelated;flex-shrink:0;filter:drop-shadow(0 0 5px rgba(255,68,68,0.5))}
+.threat-info{flex:1}
+.threat-name{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--ut-red);display:block;margin-bottom:6px}
+.threat-desc{font-family:'VT323',monospace;font-size:19px;color:rgba(232,234,240,0.8);line-height:1.45}
+
+/* ── REPLAYS ── */
+.replay-list{display:flex;flex-direction:column;gap:8px}
+.replay-item{
+  display:flex;align-items:center;gap:16px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  padding:14px 18px;text-decoration:none;color:var(--ut-white);
+  transition:all 0.12s;
+}
+.replay-item:hover{background:rgba(255,215,0,0.07);border-color:rgba(255,215,0,0.35)}
+.replay-num{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--ut-yellow);min-width:28px}
+.replay-desc{flex:1;font-family:'VT323',monospace;font-size:19px}
+.replay-tag{
+  font-family:'Press Start 2P',monospace;font-size:6px;
+  color:var(--ut-green);background:rgba(68,255,136,0.08);
+  border:1px solid rgba(68,255,136,0.35);padding:3px 8px;
+  white-space:nowrap;
+}
+.replay-tag.lucky{color:var(--ut-yellow);background:rgba(255,215,0,0.08);border-color:rgba(255,215,0,0.35)}
+.replay-tag.smart{color:var(--ut-blue);background:rgba(74,158,255,0.08);border-color:rgba(74,158,255,0.35)}
+.replay-tag.sweep{color:var(--ut-soul);background:rgba(255,107,157,0.08);border-color:rgba(255,107,157,0.35)}
+
+/* ── VOTE ── */
+.vote-box{
+  background:var(--ut-card);border:3px solid var(--ut-yellow);
+  padding:32px;text-align:center;
+}
+.vote-question{
+  font-family:'Press Start 2P',monospace;font-size:11px;
+  color:var(--ut-yellow);margin-bottom:20px;display:block;
+  letter-spacing:2px;
+}
+.vote-btns{display:flex;justify-content:center;gap:0;margin-bottom:18px}
+.vote-btn{
+  font-family:'Press Start 2P',monospace;font-size:8px;
+  padding:12px 24px;border:2px solid;cursor:pointer;
+  background:transparent;transition:all 0.1s;letter-spacing:1px;
+}
+.vote-btn.yes{color:var(--ut-green);border-color:var(--ut-green)}
+.vote-btn.yes:hover,.vote-btn.yes.active{background:var(--ut-green);color:var(--ut-darker)}
+.vote-btn.no{color:var(--ut-red);border-color:var(--ut-red);border-left:none}
+.vote-btn.no:hover,.vote-btn.no.active{background:var(--ut-red);color:var(--ut-white)}
+.vote-result{font-family:'VT323',monospace;font-size:22px;color:var(--ut-gray);min-height:30px}
+
+/* ── PAST POSTS ── */
+.past-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  padding:16px 20px;margin-bottom:10px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+}
+.past-title{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--ut-yellow);display:block;margin-bottom:5px}
+.past-sub{font-family:'VT323',monospace;font-size:17px;color:var(--ut-gray)}
+.past-elo{
+  font-family:'Press Start 2P',monospace;font-size:7px;
+  padding:4px 10px;background:rgba(255,215,0,0.08);
+  color:var(--ut-yellow);border:1px solid rgba(255,215,0,0.35);
+  white-space:nowrap;
+}
+
+/* ── CONCLUSION ── */
+.conclusion-box{
+  background:rgba(255,215,0,0.04);border:2px solid var(--ut-yellow);
+  padding:36px;text-align:center;margin:0 40px 40px;
+}
+.conclusion-box p{font-family:'VT323',monospace;font-size:21px;line-height:1.6;color:var(--ut-white);margin-bottom:14px}
+.conclusion-sig{font-family:'Press Start 2P',monospace;font-size:10px;color:var(--ut-yellow);letter-spacing:3px}
+
+/* ── PASTE BOX ── */
+.paste-box{
+  background:#050d18;border:1px solid rgba(255,215,0,0.18);
+  padding:22px 26px;font-family:'Space Mono',monospace;
+  font-size:11px;color:rgba(232,234,240,0.65);
+  line-height:1.9;overflow-x:auto;white-space:pre;
+}
+.paste-pk{color:var(--ut-yellow)}
+.paste-mv{color:var(--ut-blue)}
+.paste-ev{color:var(--ut-green)}
+
+/* TEAM SEPARATOR */
+.mon-sep{text-align:center;padding:8px 0;color:rgba(255,215,0,0.3);font-family:'Press Start 2P',monospace;font-size:8px;letter-spacing:3px}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-corner tl"></div>
+  <div class="hero-corner tr"></div>
+  <div class="hero-corner bl"></div>
+  <div class="hero-corner br"></div>
+  <div class="hero-eyebrow">National Dex OU · Rate My Team</div>
+  <div class="hero-title">YOUR SOUL IS<br>MINE TO BREAK</div>
+  <div class="hero-soul-row"><div class="soul"></div><div class="soul"></div><div class="soul"></div></div>
+  <div class="hero-subtitle">An Undertale RMT by _Spooky</div>
+  <div class="hero-meta">
+    Okidogi @ Shuca Berry &nbsp;·&nbsp; National Dex OU &nbsp;·&nbsp; Peak ELO: <span>TBD</span>
+  </div>
+</div>
+
+<!-- STYLED BANNER -->
+<div class="styled-banner">
+  ✦ YOU ARE VIEWING THE FULL STYLED VERSION ✦ &nbsp;·&nbsp; <a href="https://www.smogon.com/forums" target="_blank">SMOGON THREAD →</a>
+</div>
+
+<!-- INTRO DIALOG -->
+<div class="dialog-box" style="margin-top:36px">
+  <span class="dialog-name">_SPOOKY</span>
+  <span class="dialog-star">*</span>Hi everyone! Welcome back. For those who don't know me — I like taking Pokemon that most people wouldn't touch with a ten-foot pole and dragging them up the ladder through sheer willpower and poor life choices. Studio Ghibli. Scrafty. Morpeko. Gliscor. You know the brand.<br><br>
+  <span class="dialog-star">*</span>This time I went full theme mode: every Pokemon on this team is named after an <strong style="color:var(--ut-yellow)">Undertale</strong> character, and <strong style="color:var(--ut-yellow)">Okidogi</strong> is the star. Is Okidogi the most meta pick? No. Is it literally King Asgore in dog form? Absolutely. Let's get into it.<span class="blink-cursor"></span>
+</div>
+
+<hr class="divider">
+
+<!-- 01 TEAM AT A GLANCE -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">01</div>
+    <div class="section-title">TEAM AT A GLANCE</div>
+  </div>
+</div>
+<div class="team-strip">
+  <div class="strip-mon">
+    <img class="strip-ps" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="Okidogi">
+    <span class="strip-nick">Asgore</span><span class="strip-name">Okidogi</span>
+  </div>
+  <div class="strip-mon">
+    <img class="strip-ps" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="Corviknight">
+    <span class="strip-nick">Mettaton</span><span class="strip-name">Corviknight</span>
+  </div>
+  <div class="strip-mon">
+    <img class="strip-ps" src="https://play.pokemonshowdown.com/sprites/ani/ting-lu.gif" alt="Ting-Lu">
+    <span class="strip-nick">Annoying Dog</span><span class="strip-name">Ting-Lu</span>
+  </div>
+  <div class="strip-mon">
+    <img class="strip-ps" src="https://play.pokemonshowdown.com/sprites/ani/volcarona.gif" alt="Volcarona">
+    <span class="strip-nick">Reaper Bird</span><span class="strip-name">Volcarona</span>
+  </div>
+  <div class="strip-mon">
+    <img class="strip-ps" src="https://play.pokemonshowdown.com/sprites/ani/kyurem.gif" alt="Kyurem">
+    <span class="strip-nick">Temmie</span><span class="strip-name">Kyurem</span>
+  </div>
+  <div class="strip-mon">
+    <img class="strip-ps" src="https://play.pokemonshowdown.com/sprites/ani/lopunny-mega.gif" alt="Lopunny-Mega">
+    <span class="strip-nick">Mad Mew Mew</span><span class="strip-name">Lopunny-Mega</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 02 TEAM BUILDING PROCESS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">02</div>
+    <div class="section-title">TEAM BUILDING PROCESS</div>
+  </div>
+  <div class="build-steps">
+    <div class="build-step">
+      <div class="build-sprites">
+        <img class="bs active" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="Okidogi">
+      </div>
+      <div class="build-text"><strong>[FILL IN]</strong> — Why Okidogi? What draws you to this Pokemon and what role did you envision for it from the start?</div>
+    </div>
+    <div class="build-step">
+      <div class="build-sprites">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="">
+        <img class="bs active" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="">
+      </div>
+      <div class="build-text"><strong>[FILL IN]</strong> — What made Corviknight the natural second pick? How does it support Okidogi's weaknesses?</div>
+    </div>
+    <div class="build-step">
+      <div class="build-sprites">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="">
+        <img class="bs active" src="https://play.pokemonshowdown.com/sprites/ani/ting-lu.gif" alt="">
+      </div>
+      <div class="build-text"><strong>[FILL IN]</strong> — Ting-Lu brings Stealth Rock and Ruination. What hole does it plug at this stage of building?</div>
+    </div>
+    <div class="build-step">
+      <div class="build-sprites">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/ting-lu.gif" alt="">
+        <img class="bs active" src="https://play.pokemonshowdown.com/sprites/ani/volcarona.gif" alt="">
+      </div>
+      <div class="build-text"><strong>[FILL IN]</strong> — Volcarona as a late-game sweeper. What coverage gap or offensive pressure did this solve?</div>
+    </div>
+    <div class="build-step">
+      <div class="build-sprites">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/ting-lu.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/volcarona.gif" alt="">
+        <img class="bs active" src="https://play.pokemonshowdown.com/sprites/ani/kyurem.gif" alt="">
+      </div>
+      <div class="build-text"><strong>[FILL IN]</strong> — Scarf Kyurem for immediate speed control. What specific threats was this chosen to revenge kill?</div>
+    </div>
+    <div class="build-step">
+      <div class="build-sprites">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/ting-lu.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/volcarona.gif" alt="">
+        <img class="bs" src="https://play.pokemonshowdown.com/sprites/ani/kyurem.gif" alt="">
+        <img class="bs active" src="https://play.pokemonshowdown.com/sprites/ani/lopunny-mega.gif" alt="">
+      </div>
+      <div class="build-text"><strong>[FILL IN]</strong> — Mega Lopunny as the glue / immediate pressure piece. How did this round out the team's win conditions?</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 03 THE TEAM -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">03</div>
+    <div class="section-title">THE TEAM</div>
+  </div>
+  <div class="mon-cards">
+
+    <!-- OKIDOGI / ASGORE -->
+    <div class="mon-card">
+      <div class="mon-card-inner">
+        <div class="card-left">
+          <img class="card-ps-sprite" src="https://play.pokemonshowdown.com/sprites/ani/okidogi.gif" alt="Okidogi">
+          <div class="card-divider-line"></div>
+          <img class="card-ut-sprite" src="https://static.wikia.nocookie.net/undertale/images/7/7b/Asgore_Dreemurr_battle_idle.gif/revision/latest?cb=20160117232335" alt="Asgore">
+          <div class="card-divider-line"></div>
+          <span class="card-nickname">Asgore</span>
+          <span class="card-species">Okidogi (M)</span>
+          <a class="yt-btn" href="https://www.youtube.com/watch?v=42kI2lT0x6U" target="_blank">
+            <svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 22 12 22s4.6 0 7.3-.5c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1C23.8 8.5 23.5 6.2 23.5 6.2zM9.7 15.5V8l6.6 3.8-6.6 3.7z"/></svg>
+            OST
+          </a>
+        </div>
+        <div class="card-right">
+          <div class="card-header">
+            <span class="card-title">ASGORE</span>
+            <span class="badge badge-item">Shuca Berry</span>
+            <span class="badge badge-ability">Guard Dog</span>
+            <span class="badge badge-tera">Tera: Poison</span>
+          </div>
+          <div class="ut-quote">"Despite everything, it's still you."</div>
+          <div class="moves-grid">
+            <div class="move-pill">Ice Punch</div>
+            <div class="move-pill">Gunk Shot</div>
+            <div class="move-pill">Close Combat</div>
+            <div class="move-pill">Rock Tomb</div>
+          </div>
+          <div class="ev-wrap">
+            <div class="ev-labels"><span>Atk 192</span><span>Def 96</span><span>SpD 180</span><span>Spe 40</span></div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="card-nature">Adamant · EVs: 192 Atk / 96 Def / 180 SpD / 40 Spe</div>
+          <div class="card-desc">[FILL IN] — Explain the role Okidogi plays. Why Shuca Berry? What does Guard Dog do for it in this meta? Why this specific EV spread and what does each stat threshold accomplish?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORVIKNIGHT / METTATON -->
+    <div class="mon-card">
+      <div class="mon-card-inner">
+        <div class="card-left">
+          <img class="card-ps-sprite" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="Corviknight">
+          <div class="card-divider-line"></div>
+          <img class="card-ut-sprite" src="https://static.wikia.nocookie.net/undertale/images/5/50/Mettaton_battle_box.gif/revision/latest?cb=20151111052225" alt="Mettaton">
+          <div class="card-divider-line"></div>
+          <span class="card-nickname">Mettaton</span>
+          <span class="card-species">Corviknight</span>
+          <a class="yt-btn" href="https://www.youtube.com/watch?v=qeDIZCc6Cyo" target="_blank">
+            <svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 22 12 22s4.6 0 7.3-.5c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1C23.8 8.5 23.5 6.2 23.5 6.2zM9.7 15.5V8l6.6 3.8-6.6 3.7z"/></svg>
+            OST
+          </a>
+        </div>
+        <div class="card-right">
+          <div class="card-header">
+            <span class="card-title">METTATON</span>
+            <span class="badge badge-item">Rocky Helmet</span>
+            <span class="badge badge-ability">Pressure</span>
+            <span class="badge badge-tera">Tera: Flying</span>
+          </div>
+          <div class="ut-quote">"Live! Life! RATINGS!"</div>
+          <div class="moves-grid">
+            <div class="move-pill">Brave Bird</div>
+            <div class="move-pill">U-turn</div>
+            <div class="move-pill">Defog</div>
+            <div class="move-pill">Roost</div>
+          </div>
+          <div class="ev-wrap">
+            <div class="ev-labels"><span>HP 248</span><span>Def 252</span><span>SpD 8</span></div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:86%"></div></div>
+          </div>
+          <div class="card-nature">Impish · EVs: 248 HP / 252 Def / 8 SpD</div>
+          <div class="card-desc">[FILL IN] — The steel showstopper. Mettaton never stops performing. Rocky Helmet + Brave Bird chip, hazard removal, pivot utility via U-turn. What does it bring that nothing else on this team can?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TING-LU / ANNOYING DOG -->
+    <div class="mon-card">
+      <div class="mon-card-inner">
+        <div class="card-left">
+          <img class="card-ps-sprite" src="https://play.pokemonshowdown.com/sprites/ani/ting-lu.gif" alt="Ting-Lu">
+          <div class="card-divider-line"></div>
+          <img class="card-ut-sprite" src="https://static.wikia.nocookie.net/undertale/images/0/0b/Annoying_Dog_sprite.gif/revision/latest?cb=20160125092850" alt="Annoying Dog">
+          <div class="card-divider-line"></div>
+          <span class="card-nickname">Annoying Dog</span>
+          <span class="card-species">Ting-Lu</span>
+          <a class="yt-btn" href="https://www.youtube.com/watch?v=EWP9Nr7IxUU" target="_blank">
+            <svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 22 12 22s4.6 0 7.3-.5c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1C23.8 8.5 23.5 6.2 23.5 6.2zM9.7 15.5V8l6.6 3.8-6.6 3.7z"/></svg>
+            OST
+          </a>
+        </div>
+        <div class="card-right">
+          <div class="card-header">
+            <span class="card-title">ANNOYING DOG</span>
+            <span class="badge badge-item">Leftovers</span>
+            <span class="badge badge-ability">Vessel of Ruin</span>
+            <span class="badge badge-tera">Tera: Dark</span>
+          </div>
+          <div class="ut-quote">"..."</div>
+          <div class="moves-grid">
+            <div class="move-pill">Ruination</div>
+            <div class="move-pill">Earthquake</div>
+            <div class="move-pill">Stealth Rock</div>
+            <div class="move-pill">Stone Edge</div>
+          </div>
+          <div class="ev-wrap">
+            <div class="ev-labels"><span>HP 240</span><span>Atk 16</span><span>SpD 252</span></div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="card-nature">Careful · EVs: 240 HP / 16 Atk / 252 SpD</div>
+          <div class="card-desc">[FILL IN] — Just like the Annoying Dog stealing the artifact in Undertale, Ting-Lu just sits there and steals your momentum. Ruination + Stealth Rock is a miserable combo to face. Explain the SpD investment, Leftovers choice, and what Ting-Lu enables for the rest of the team.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VOLCARONA / REAPER BIRD -->
+    <div class="mon-card">
+      <div class="mon-card-inner">
+        <div class="card-left">
+          <img class="card-ps-sprite" src="https://play.pokemonshowdown.com/sprites/ani/volcarona.gif" alt="Volcarona">
+          <div class="card-divider-line"></div>
+          <img class="card-ut-sprite" src="https://static.wikia.nocookie.net/undertale/images/9/98/Reaper_Bird_battle.gif/revision/latest?cb=20151123003441" alt="Reaper Bird">
+          <div class="card-divider-line"></div>
+          <span class="card-nickname">Reaper Bird</span>
+          <span class="card-species">Volcarona</span>
+          <a class="yt-btn" href="https://www.youtube.com/watch?v=p6qO-ONYEkg" target="_blank">
+            <svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 22 12 22s4.6 0 7.3-.5c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1C23.8 8.5 23.5 6.2 23.5 6.2zM9.7 15.5V8l6.6 3.8-6.6 3.7z"/></svg>
+            OST
+          </a>
+        </div>
+        <div class="card-right">
+          <div class="card-header">
+            <span class="card-title">REAPER BIRD</span>
+            <span class="badge badge-item">Heavy-Duty Boots</span>
+            <span class="badge badge-ability">Flame Body</span>
+            <span class="badge badge-tera">Tera: Bug</span>
+          </div>
+          <div class="ut-quote">"A legendary creature said to have the power to kill anything."</div>
+          <div class="moves-grid">
+            <div class="move-pill">Bug Buzz</div>
+            <div class="move-pill">Flamethrower</div>
+            <div class="move-pill">HP [Ground]</div>
+            <div class="move-pill">Quiver Dance</div>
+          </div>
+          <div class="ev-wrap">
+            <div class="ev-labels"><span>SpA 252</span><span>SpD 4</span><span>Spe 252</span></div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:85%"></div></div>
+          </div>
+          <div class="card-nature">Modest · 0 Atk IVs · EVs: 252 SpA / 4 SpD / 252 Spe</div>
+          <div class="card-desc">[FILL IN] — The Reaper Bird shows up unexpectedly and wrecks everything. Volcarona does the same after a Quiver Dance. Why Heavy-Duty Boots? Why HP Ground specifically? What makes Tera Bug the right call here?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KYUREM / TEMMIE -->
+    <div class="mon-card">
+      <div class="mon-card-inner">
+        <div class="card-left">
+          <img class="card-ps-sprite" src="https://play.pokemonshowdown.com/sprites/ani/kyurem.gif" alt="Kyurem">
+          <div class="card-divider-line"></div>
+          <img class="card-ut-sprite" src="https://static.wikia.nocookie.net/undertale/images/7/7b/Temmie_battle_idle.gif/revision/latest?cb=20151206115948" alt="Temmie">
+          <div class="card-divider-line"></div>
+          <span class="card-nickname">Temmie</span>
+          <span class="card-species">Kyurem</span>
+          <a class="yt-btn" href="https://www.youtube.com/watch?v=W_KIzOudAlY" target="_blank">
+            <svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 22 12 22s4.6 0 7.3-.5c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1C23.8 8.5 23.5 6.2 23.5 6.2zM9.7 15.5V8l6.6 3.8-6.6 3.7z"/></svg>
+            OST
+          </a>
+        </div>
+        <div class="card-right">
+          <div class="card-header">
+            <span class="card-title">TEMMIE</span>
+            <span class="badge badge-item">Choice Scarf</span>
+            <span class="badge badge-ability">Pressure</span>
+            <span class="badge badge-tera">Tera: Dragon</span>
+          </div>
+          <div class="ut-quote">"hOI!! i'm tEMMIE!!"</div>
+          <div class="moves-grid">
+            <div class="move-pill">Freeze-Dry</div>
+            <div class="move-pill">Draco Meteor</div>
+            <div class="move-pill">Earth Power</div>
+            <div class="move-pill">Flash Cannon</div>
+          </div>
+          <div class="ev-wrap">
+            <div class="ev-labels"><span>Def 4</span><span>SpA 252</span><span>Spe 252</span></div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:82%"></div></div>
+          </div>
+          <div class="card-nature">Modest · 0 Atk IVs · EVs: 4 Def / 252 SpA / 252 Spe</div>
+          <div class="card-desc">[FILL IN] — hOI!! i'm tEMMIE!! ...and also a 130 base SpA Scarf dragon that will erase you from existence. Why Scarf over other items? Why Freeze-Dry is especially valuable coverage? What does Flash Cannon cover? Lean into the irony.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOPUNNY-MEGA / MAD MEW MEW -->
+    <div class="mon-card">
+      <div class="mon-card-inner">
+        <div class="card-left">
+          <img class="card-ps-sprite" src="https://play.pokemonshowdown.com/sprites/ani/lopunny-mega.gif" alt="Lopunny-Mega">
+          <div class="card-divider-line"></div>
+          <img class="card-ut-sprite" src="https://static.wikia.nocookie.net/undertale/images/c/c1/Mad_Mew_Mew_battle.gif/revision/latest?cb=20200522192549" alt="Mad Mew Mew">
+          <div class="card-divider-line"></div>
+          <span class="card-nickname">Mad Mew Mew</span>
+          <span class="card-species">Lopunny-Mega</span>
+          <a class="yt-btn" href="https://www.youtube.com/watch?v=kn4vBLkrhro" target="_blank">
+            <svg class="yt-icon" viewBox="0 0 24 24"><path d="M23.5 6.2s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.6 2 12 2 12 2s-4.6 0-7.3.1c-.6.1-1.9.1-3 1.3C.8 4.2.5 6.2.5 6.2S.2 8.5.2 10.8v2.1c0 2.3.3 4.6.3 4.6s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.8 12 22 12 22s4.6 0 7.3-.5c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.3.3-4.6v-2.1C23.8 8.5 23.5 6.2 23.5 6.2zM9.7 15.5V8l6.6 3.8-6.6 3.7z"/></svg>
+            OST
+          </a>
+        </div>
+        <div class="card-right">
+          <div class="card-header">
+            <span class="card-title">MAD MEW MEW</span>
+            <span class="badge badge-item">Lopunnite</span>
+            <span class="badge badge-ability">Scrappy</span>
+            <span class="badge badge-tera">Tera: Normal</span>
+          </div>
+          <div class="ut-quote">"You'll make a fine addition to my collection."</div>
+          <div class="moves-grid">
+            <div class="move-pill">Fake Out</div>
+            <div class="move-pill">U-turn</div>
+            <div class="move-pill">Frustration</div>
+            <div class="move-pill">Close Combat</div>
+          </div>
+          <div class="ev-wrap">
+            <div class="ev-labels"><span>Atk 252</span><span>SpD 4</span><span>Spe 252</span></div>
+            <div class="ev-bar-bg"><div class="ev-bar-fill" style="width:90%"></div></div>
+          </div>
+          <div class="card-nature">Jolly · Happiness: 0 · EVs: 252 Atk / 4 SpD / 252 Spe</div>
+          <div class="card-desc">[FILL IN] — Mad Mew Mew is the secret boss hiding in plain sight. Frustration (0 happiness) over Return is a nice detail. Scrappy means no Ghost-type safe switches. Fake Out + U-turn momentum is brutally effective. Explain how this cements late-game sweep scenarios.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 04 TEAM PASTE -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">04</div>
+    <div class="section-title">TEAM PASTE</div>
+  </div>
+  <div class="paste-box"><span class="paste-pk">Asgore (Okidogi) (M) @ Shuca Berry</span>
+Ability: Guard Dog
+Tera Type: Poison
+<span class="paste-ev">EVs: 192 Atk / 96 Def / 180 SpD / 40 Spe</span>
+Adamant Nature
+<span class="paste-mv">- Ice Punch
+- Gunk Shot
+- Close Combat
+- Rock Tomb</span>
+
+<span class="paste-pk">Mettaton (Corviknight) @ Rocky Helmet</span>
+Ability: Pressure
+Tera Type: Flying
+<span class="paste-ev">EVs: 248 HP / 252 Def / 8 SpD</span>
+Impish Nature
+<span class="paste-mv">- Brave Bird
+- U-turn
+- Defog
+- Roost</span>
+
+<span class="paste-pk">Annoying Dog (Ting-Lu) @ Leftovers</span>
+Ability: Vessel of Ruin
+Tera Type: Dark
+<span class="paste-ev">EVs: 240 HP / 16 Atk / 252 SpD</span>
+Careful Nature
+<span class="paste-mv">- Ruination
+- Earthquake
+- Stealth Rock
+- Stone Edge</span>
+
+<span class="paste-pk">Reaper Bird (Volcarona) @ Heavy-Duty Boots</span>
+Ability: Flame Body
+Tera Type: Bug
+<span class="paste-ev">EVs: 252 SpA / 4 SpD / 252 Spe</span>
+Modest Nature
+IVs: 0 Atk
+<span class="paste-mv">- Bug Buzz
+- Flamethrower
+- Hidden Power [Ground]
+- Quiver Dance</span>
+
+<span class="paste-pk">Temmie (Kyurem) @ Choice Scarf</span>
+Ability: Pressure
+Tera Type: Dragon
+<span class="paste-ev">EVs: 4 Def / 252 SpA / 252 Spe</span>
+Modest Nature
+IVs: 0 Atk
+<span class="paste-mv">- Freeze-Dry
+- Draco Meteor
+- Earth Power
+- Flash Cannon</span>
+
+<span class="paste-pk">Mad Mew Mew (Lopunny-Mega) @ Lopunnite</span>
+Ability: Scrappy
+Happiness: 0
+Tera Type: Normal
+<span class="paste-ev">EVs: 252 Atk / 4 SpD / 252 Spe</span>
+Jolly Nature
+<span class="paste-mv">- Fake Out
+- U-turn
+- Frustration
+- Close Combat</span></div>
+</div>
+
+<hr class="divider">
+
+<!-- 05 THREAT LIST -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">05</div>
+    <div class="section-title">THREAT LIST</div>
+  </div>
+  <div class="threat-card">
+    <img class="threat-ps" src="https://play.pokemonshowdown.com/sprites/ani/corviknight.gif" alt="Corviknight">
+    <div class="threat-info">
+      <span class="threat-name">CORVIKNIGHT</span>
+      <div class="threat-desc">Not many answers on this team. Brave Bird chip accumulates and starts winning games if not dealt with early. Mirror matchup is especially rough.</div>
+    </div>
+  </div>
+  <div class="threat-card">
+    <img class="threat-ps" src="https://play.pokemonshowdown.com/sprites/ani/araquanid.gif" alt="Araquanid">
+    <div class="threat-info">
+      <span class="threat-name">ARAQUANID (OFFENSIVE)</span>
+      <div class="threat-desc">Offensive variant can pick up 1–2 KOs before the team can respond. Lots of chip + no immediate answer makes this especially threatening in the mid-game.</div>
+    </div>
+  </div>
+  <div class="threat-card">
+    <img class="threat-ps" src="https://play.pokemonshowdown.com/sprites/ani/alomomola.gif" alt="Alomomola">
+    <div class="threat-info">
+      <span class="threat-name">ALOMOMOLA</span>
+      <div class="threat-desc">No immediate answers. Can usually be played around through smart pivoting, but if Alomomola stays healthy late-game it becomes an unkillable stall anchor.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 06 REPLAYS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">06</div>
+    <div class="section-title">REPLAYS</div>
+  </div>
+  <div class="replay-list">
+    <a class="replay-item" href="https://replay.pokemonshowdown.com/gen9nationaldex-2575286926" target="_blank">
+      <span class="replay-num">01</span>
+      <span class="replay-desc">Rain team — Archaludon throw — Clutch</span>
+      <span class="replay-tag">CLUTCH</span>
+    </a>
+    <a class="replay-item" href="https://replay.pokemonshowdown.com/gen9nationaldex-2575295689" target="_blank">
+      <span class="replay-num">02</span>
+      <span class="replay-desc">Rain team — Lopunny clutch — Lucky Freeze Empoleon</span>
+      <span class="replay-tag lucky">LUCKY</span>
+    </a>
+    <a class="replay-item" href="https://replay.pokemonshowdown.com/gen9nationaldex-2575299971" target="_blank">
+      <span class="replay-num">03</span>
+      <span class="replay-desc">Tapu + Lucha combo — Smart Ting-Lu sacrifice</span>
+      <span class="replay-tag smart">SMART PLAY</span>
+    </a>
+    <a class="replay-item" href="https://replay.pokemonshowdown.com/gen9nationaldex-2575308234" target="_blank">
+      <span class="replay-num">04</span>
+      <span class="replay-desc">Bulky team — Specs Iron Crown — Lopunny / Corv clutch</span>
+      <span class="replay-tag">CLUTCH</span>
+    </a>
+    <a class="replay-item" href="https://replay.pokemonshowdown.com/gen9nationaldex-2575319570-hr17deatwuclpha92q67kamd8jus6uupw" target="_blank">
+      <span class="replay-num">05</span>
+      <span class="replay-desc">Sun team — Instant sweep</span>
+      <span class="replay-tag sweep">SWEEP</span>
+    </a>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 07 COMMUNITY VOTE -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">07</div>
+    <div class="section-title">COMMUNITY VOTE</div>
+  </div>
+  <div class="vote-box">
+    <span class="vote-question">IS OKIDOGI UNDERRATED?</span>
+    <div class="vote-btns">
+      <button class="vote-btn yes" onclick="castVote('yes',this)">YES — DETERMINED</button>
+      <button class="vote-btn no" onclick="castVote('no',this)">NO — BAD TIME</button>
+    </div>
+    <div class="vote-result" id="voteResult">Cast your vote above</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 08 PAST RMTs -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-tag">08</div>
+    <div class="section-title">PAST RMTs</div>
+  </div>
+  <div class="past-card">
+    <div>
+      <span class="past-title">DO NOT EVER USE MORPEKO... I TRIED</span>
+      <span class="past-sub">Marnie's Morpeko — National Dex OU &nbsp;·&nbsp; Oct 2025</span>
+    </div>
+    <span class="past-elo">PEAK 1550</span>
+  </div>
+  <div class="past-card">
+    <div>
+      <span class="past-title">SWORDS DANCE GLISCOR IS UNDERRATED</span>
+      <span class="past-sub">Gliscor / Raging Bolt / Mega Lopunny — National Dex OU</span>
+    </div>
+    <span class="past-elo">PEAK ~1550</span>
+  </div>
+  <div class="past-card">
+    <div>
+      <span class="past-title">SCRAFTY IS THE GOAT — STUDIO GHIBLI</span>
+      <span class="past-sub">Scrafty / Heatran / Gliscor / Serperior / Darkrai / Ninetales-A — Jan 2024</span>
+    </div>
+    <span class="past-elo">FIRST POST</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONCLUSION -->
+<div class="conclusion-box">
+  <div style="display:flex;justify-content:center;gap:10px;margin-bottom:16px">
+    <div class="soul"></div><div class="soul"></div><div class="soul"></div>
+  </div>
+  <p>[FILL IN] — Wrap up the post here. How did the team feel to play? What surprised you? What would you change? Any shoutouts?</p>
+  <p style="color:var(--ut-gray);font-size:18px">Leave feedback, suggestions, or your own replays in the replies.<br>All forms of criticism welcome as always.</p>
+  <div class="conclusion-sig" style="margin-top:20px">STAY DETERMINED — _SPOOKY</div>
+  <div style="display:flex;justify-content:center;gap:10px;margin-top:16px">
+    <div class="soul"></div><div class="soul"></div><div class="soul"></div>
+  </div>
+</div>
+
+<script>
+var voted = false;
+var counts = {yes:0, no:0};
+function castVote(choice, btn) {
+  if (voted) return;
+  voted = true;
+  counts[choice]++;
+  var total = counts.yes + counts.no;
+  var pct = Math.round((counts[choice]/total)*100);
+  var label = choice === 'yes' ? 'DETERMINED! ' : 'BAD TIME... ';
+  document.getElementById('voteResult').textContent =
+    label + counts.yes + ' YES vs ' + counts.no + ' NO (' + pct + '% ' + choice.toUpperCase() + ')';
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
